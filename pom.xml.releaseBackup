@@ -10,11 +10,11 @@
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>2.5.4</version>
-		<relativePath /> <!-- lookup parent from repository -->
+		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>guru.springframework</groupId>
 	<artifactId>pnafs-pet-clinic</artifactId>
-	<version>0.0.1</version>
+	<version>0.0.1-SNAPSHOT</version>
 	<name>pnafs-pet-clinic</name>
 	<description>PNAFS Pet Clinic Project</description>
 	<properties>
@@ -49,6 +49,5 @@
 
 	<scm>
 		<developerConnection>scm:git:git@github.com:inafsdeveloper/pnaf-pet-clinic.git</developerConnection>
-	  <tag>pnafs-pet-clinic-0.0.1</tag>
-  </scm>
+	</scm>
 </project>
