@@ -1,10 +1,7 @@
 package guru.springframework.pnafspetclinic.bootstrap;
 
 import guru.springframework.pnafspetclinic.model.*;
-import guru.springframework.pnafspetclinic.services.OwnerService;
-import guru.springframework.pnafspetclinic.services.PetTypeService;
-import guru.springframework.pnafspetclinic.services.SpecialityService;
-import guru.springframework.pnafspetclinic.services.VetService;
+import guru.springframework.pnafspetclinic.services.*;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
@@ -16,15 +13,18 @@ public class DataLoader implements CommandLineRunner {
     private final VetService vetService;
     private final PetTypeService petTypeService;
     private final SpecialityService specialityService;
+    private final VisitService visitService;
 
     public DataLoader(OwnerService ownerService,
                       VetService vetService,
                       PetTypeService petTypeService,
-                      SpecialityService specialityService) {
+                      SpecialityService specialityService,
+                      VisitService visitService) {
         this.ownerService = ownerService;
         this.vetService = vetService;
         this.petTypeService = petTypeService;
         this.specialityService = specialityService;
+        this.visitService = visitService;
     }
 
     @Override
@@ -87,6 +87,14 @@ public class DataLoader implements CommandLineRunner {
 
         System.out.println("Loaded Owners...");
 
+        Visit visit = new Visit();
+        visit.setPet(jakesPet);
+        visit.setDate(LocalDate.now());
+        visit.setDescription("Kitty not feeling well");
+        visitService.save(visit);
+
+        System.out.println("Loaded Visits...");
+
         Vet vet1 = new Vet();
         vet1.setFirstName("Sam");
         vet1.setLastName("Axe");
@@ -131,6 +139,18 @@ public class DataLoader implements CommandLineRunner {
                     pet.getOwner().getFirstName() + ", " +
                     pet.getOwner().getLastName()
             ));
+        });
+
+        System.out.println("List of Visits");
+        visitService.findAll().forEach(visit1 -> {
+            System.out.println(
+                    visit1.getId() + ", " +
+                    "["+visit1.getPet().getId()+","
+                    +visit1.getPet().getPetType().getName()+","
+                    +visit1.getPet().getBirthDate()+"], "
+                    +visit1.getDate()+", "
+                    +visit1.getDescription()
+            );
         });
 
         System.out.println("List of Vets");
